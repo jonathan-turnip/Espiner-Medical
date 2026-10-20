@@ -1,0 +1,242 @@
+/* Brand typeface: Agenda.
+   Uses Agenda if installed on the visitor's device, or if licensed web font
+   files are placed in assets/fonts/ with the names below. Otherwise falls
+   back to Fira Sans, a close humanist sans. */
+@font-face {
+  font-family: "Agenda";
+  src: local("Agenda"), local("Agenda-Regular"),
+       url("assets/fonts/Agenda-Regular.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Agenda";
+  src: local("Agenda Medium"), local("Agenda-Medium"),
+       url("assets/fonts/Agenda-Medium.woff2") format("woff2");
+  font-weight: 500 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Agenda";
+  src: local("Agenda Bold"), local("Agenda-Bold"),
+       url("assets/fonts/Agenda-Bold.woff2") format("woff2");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
+:root {
+  /* Brand colours */
+  --brand-blue: #00AEEF;   /* Primary blue */
+  --brand-dark: #00303C;   /* Dark blue */
+
+  --cyan: var(--brand-blue);
+  --cyan-deep: var(--brand-dark);
+  --ink: var(--brand-dark);
+  --slate: var(--brand-dark);   /* Detail text: Pantone 547C */
+  --heading: var(--brand-blue); /* Headings: Process Cyan */
+  --mist: #E5F6FD;
+  --line: #CBE8F3;
+  --surface: #FFFFFF;
+  --page: #F5FBFD;
+  --font: "Agenda", "Fira Sans", "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #E8F6FA; --slate: #A6C3CB; --mist: #063D4B; --line: #0E4B59;
+    --surface: #00303C; --page: #00222B; --cyan-deep: var(--brand-blue);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ink: #E8F6FA; --slate: #A6C3CB; --mist: #063D4B; --line: #0E4B59;
+  --surface: #00303C; --page: #00222B; --cyan-deep: var(--brand-blue);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: inherit; }
+html, body { margin: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--page);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+main { flex: 1; }
+img { max-width: 100%; height: auto; display: block; }
+
+.wrap { width: 100%; max-width: 68rem; margin: 0 auto; padding: 0 1.5rem; }
+
+/* Header: logo always sits on white so its colours stay true */
+.site-header { background: #FFFFFF; border-bottom: 1px solid var(--line); }
+.header-inner { display: flex; align-items: center; min-height: 5rem; }
+.brand { display: inline-block; border-radius: 4px; }
+.brand img { width: 168px; }
+
+/* Hero */
+.hero { position: relative; overflow: hidden; padding: 4.5rem 0 3.5rem; }
+.hero-inner { position: relative; z-index: 1; }
+h1 {
+  margin: 0;
+  font-size: clamp(2.5rem, 7vw, 4.75rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+.lede { margin: 1.25rem 0 0; max-width: 38rem; color: var(--slate); font-size: 1.1875rem; }
+
+/* The logo's dot, enlarged: one quiet brand moment */
+.orb {
+  position: absolute;
+  width: clamp(14rem, 34vw, 26rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: clamp(1.5rem, 3.5vw, 2.75rem) solid var(--cyan);
+  right: -4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: .14;
+}
+
+/* Resource links */
+.links { padding: 0 0 5rem; }
+.link-grid { display: grid; gap: 1.25rem; grid-template-columns: 1fr; }
+@media (min-width: 760px) { .link-grid { grid-template-columns: 1fr 1fr; } }
+
+.resource {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem 1.25rem;
+  padding: 1.75rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--cyan);
+  border-radius: 6px;
+  color: inherit;
+  text-decoration: none;
+  transition: border-color .15s ease, background-color .15s ease;
+}
+.resource:hover { border-color: var(--cyan); background: var(--mist); }
+.resource:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
+
+.icon {
+  width: 3rem; height: 3rem;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--mist);
+  color: var(--cyan-deep);
+}
+.icon svg { width: 1.5rem; height: 1.5rem; }
+.resource-text { display: flex; flex-direction: column; gap: .35rem; }
+.resource-title { font-size: 1.375rem; font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; }
+.resource-desc { color: var(--slate); }
+.go {
+  grid-column: 2;
+  font-weight: 600;
+  color: var(--cyan-deep);
+  display: inline-flex; align-items: center; gap: .4rem;
+}
+.go::after {
+  content: "";
+  width: .55rem; height: .55rem;
+  border-top: 2px solid currentColor; border-right: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform .15s ease;
+}
+.resource:hover .go::after { transform: translateX(3px) rotate(45deg); }
+
+/* Footer */
+.site-footer { background: var(--brand-dark); border-top: 4px solid var(--brand-blue); padding: 1.5rem 0; color: #FFFFFF; font-size: .9375rem; }
+.site-footer p { margin: 0; }
+
+@media (max-width: 520px) {
+  .hero { padding: 3rem 0 2.5rem; }
+  .brand img { width: 140px; }
+  .resource { grid-template-columns: 1fr; padding: 1.5rem; }
+  .go { grid-column: 1; }
+  .orb { right: -7rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+
+/* History section */
+.history { padding: 0 0 4rem; }
+.history h2 {
+  margin: 0 0 1.5rem;
+  max-width: 44rem;
+  font-size: clamp(1.625rem, 3.6vw, 2.25rem);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--line);
+}
+.history-figure { margin: 0 0 2rem; }
+.history-figure img {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: var(--mist);
+}
+.history-text { max-width: 42rem; }
+.history-text p { margin: 0 0 1.1rem; color: var(--slate); }
+.history-text p:first-child { color: var(--ink); font-size: 1.1875rem; }
+.history-text p:last-child { margin-bottom: 0; }
+.links { padding-top: 0; }
+
+/* Explore section intro */
+.links-intro { margin-bottom: 1.75rem; }
+.links-intro h2 {
+  margin: 0 0 .75rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--line);
+  font-size: clamp(1.625rem, 3.6vw, 2.25rem);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+}
+.links-intro p { margin: 0; max-width: 40rem; color: var(--slate); }
+.hero { padding: 4rem 0 3rem; }
+@media (max-width: 520px) { .hero { padding: 2.75rem 0 2.25rem; } }
+
+/* Revised: smaller headings */
+h1 { font-size: clamp(2rem, 5vw, 3.25rem); }
+.history h2, .links-intro h2 { font-size: clamp(1.3rem, 2.6vw, 1.625rem); }
+.resource-title { font-size: 1.1875rem; }
+
+/* History: product photo beside text on wider screens */
+.history-body { display: grid; gap: 1.75rem; grid-template-columns: 1fr; align-items: start; }
+.history-figure { margin: 0; justify-self: center; width: 100%; max-width: 300px; }
+.history-figure img {
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+@media (min-width: 760px) {
+  .history-body { grid-template-columns: 280px 1fr; gap: 2.5rem; }
+  .history-figure { justify-self: start; }
+}
+
+/* Brand: headings in Process Cyan, detail text in Pantone 547C */
+h1, h2 { color: var(--heading); }
+
+/* Contact row */
+.contact { background: var(--surface); border-top: 1px solid var(--line); padding: 2.25rem 0; }
+.contact-grid { display: grid; gap: 1.5rem; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .contact-grid { grid-template-columns: repeat(3, 1fr); gap: 2rem; } }
+.contact-group p { margin: 0 0 .3rem; color: var(--slate); }
+.contact-group p:last-child { margin-bottom: 0; }
+.contact-label { font-weight: 600; color: var(--heading) !important; }
+.contact a { color: var(--cyan-deep); font-weight: 500; text-decoration: underline; text-decoration-color: var(--brand-blue); text-underline-offset: 3px; overflow-wrap: anywhere; }
+.contact a:hover { color: var(--brand-blue); }
+.contact a:focus-visible { outline: 3px solid var(--brand-blue); outline-offset: 2px; border-radius: 2px; }
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
